@@ -1,0 +1,17 @@
+{
+  "name": "Wetter & Regenradar",
+  "short_name": "Wetter",
+  "description": "Wetter, Regenradar und Unwetterwarnungen",
+  "lang": "de",
+  "id": "/wetter/?app=io.github.schmidthorsten89-beep.wetter",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1e4e96",
+  "theme_color": "#1e4e96",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1e4e96">
+  <meta name="description" content="Wetter, Regenradar und Unwetterwarnungen">
+  <title>Wetter</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="lib/leaflet.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <!-- Wetter: eine Seite pro Ort, seitlich wischen -->
+    <section id="ansicht-wetter" class="ansicht aktiv" aria-label="Wetter">
+      <div id="band" class="band"></div>
+      <div id="punkte" class="punkte" aria-hidden="true"></div>
+    </section>
+
+    <!-- Radar -->
+    <section id="ansicht-radar" class="ansicht" aria-label="Regenradar" hidden>
+      <div id="karte" class="karte"></div>
+      <div id="radar-hinweis" class="radar-hinweis" hidden></div>
+      <div class="radar-leiste">
+        <div class="radar-zeile">
+          <button id="radar-abspielen" class="rund" type="button" aria-label="Abspielen">▶</button>
+          <div class="radar-zeit">
+            <strong id="radar-uhrzeit">–</strong>
+            <span id="radar-art" class="radar-art"></span>
+          </div>
+          <button id="radar-jetzt" class="knopf-klein" type="button">Jetzt</button>
+          <button id="radar-mehr" class="knopf-klein" type="button" aria-expanded="false">Ebenen</button>
+        </div>
+        <div class="regler-huelle">
+          <input id="radar-regler" type="range" min="0" max="0" value="0" aria-label="Zeitpunkt">
+          <div id="radar-skala" class="radar-skala"></div>
+        </div>
+        <div id="radar-optionen" class="radar-optionen" hidden>
+          <label><input id="radar-warnungen" type="checkbox"> Unwetterwarnungen einblenden</label>
+          <img id="radar-legende" alt="Legende Niederschlag in mm/h" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- Orte -->
+    <section id="ansicht-orte" class="ansicht" aria-label="Orte" hidden>
+      <div class="orte-inhalt">
+        <h1>Orte</h1>
+        <div class="suche">
+          <input id="suche" type="search" placeholder="Ort suchen, z. B. Freiburg" autocomplete="off" enterkeyhint="search">
+          <ul id="vorschlaege" class="vorschlaege" hidden></ul>
+        </div>
+        <label class="schalter">
+          <input id="gps-schalter" type="checkbox">
+          <span>Meinen Standort verwenden</span>
+        </label>
+        <ul id="orte-liste" class="orte-liste"></ul>
+        <p class="quellen">
+          Daten: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (Modelle u. a. DWD ICON, Pollen: CAMS),
+          Radar und Warnungen: <a href="https://www.dwd.de/" target="_blank" rel="noopener">Deutscher Wetterdienst</a>,
+          Karte: TopPlusOpen © <a href="https://www.bkg.bund.de/" target="_blank" rel="noopener">Bundesamt für Kartographie und Geodäsie</a>
+          (<a href="https://sg.geodatenzentrum.de/web_public/Datenquellen_TopPlus_Open.pdf" target="_blank" rel="noopener">Datenquellen</a>).
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <nav class="leiste">
+    <button type="button" data-ansicht="wetter" class="aktiv"><span aria-hidden="true">🌤️</span>Wetter</button>
+    <button type="button" data-ansicht="radar"><span aria-hidden="true">🛰️</span>Radar</button>
+    <button type="button" data-ansicht="orte"><span aria-hidden="true">📍</span>Orte</button>
+  </nav>
+
+  <dialog id="warn-dialog">
+    <form method="dialog">
+      <div id="warn-inhalt"></div>
+      <button class="knopf" value="zu">Schließen</button>
+    </form>
+  </dialog>
+
+  <div id="status" class="status" role="status" aria-live="polite" hidden></div>
+
+  <script src="lib/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
